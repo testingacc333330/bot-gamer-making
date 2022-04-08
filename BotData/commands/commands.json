@@ -1,0 +1,109 @@
+{
+  "command": [
+    {
+      "name": "createsubdit",
+      "actions": [
+        {
+          "name": "check",
+          "category": "User Action",
+          "type": "Check User Permissions",
+          "trueActions": [
+            {
+              "name": "coming",
+              "category": "Message",
+              "type": "Send Message",
+              "channelname": "${dbsVars.CommandChannel.id}",
+              "messagetext": "Coming right up.",
+              "savetovariable": "",
+              "savetovariabletype": "temp"
+            },
+            {
+              "name": "var",
+              "category": "Variable",
+              "type": "Store Value in Variable",
+              "varname": "thename",
+              "vartype": "Text",
+              "savevartype": "temp",
+              "param": "1"
+            },
+            {
+              "name": "checkif",
+              "category": "Variable",
+              "type": "Check if Variable Exists",
+              "trueActions": [
+                {
+                  "name": "bruh",
+                  "category": "Message",
+                  "type": "Send Message",
+                  "channelname": "${tempVars.thename}<#${dbsVars.CommandChannel.id}>",
+                  "messagetext": "This subdit's name already exists! It's not your fault.",
+                  "savetovariable": "",
+                  "savetovariabletype": "temp"
+                }
+              ],
+              "falseActions": [
+                {
+                  "name": "newsubdit",
+                  "category": "Channel Action",
+                  "type": "Create Channel",
+                  "channelname": "/sd/${tempVars.thename}",
+                  "chancategory": "",
+                  "reason": "",
+                  "channeltype": "Text",
+                  "savetovariable": "newsubdit",
+                  "savetovariabletype": "temp"
+                },
+                {
+                  "name": "addrole",
+                  "category": "Server Action",
+                  "type": "Add Role to Server",
+                  "rolename": "${tempVars.thename}",
+                  "color": "7230FF",
+                  "position": "",
+                  "hoist": "false",
+                  "mentionable": "false",
+                  "savetovariable": "therolenew",
+                  "savetovariabletype": "temp"
+                },
+                {
+                  "name": "addroletouser",
+                  "category": "User Action",
+                  "type": "Add Role to User",
+                  "user": "<@${dbsVars.CommandAuthor.id}>",
+                  "rolename": "${tempVars.therolenew}"
+                },
+                {
+                  "name": "finish",
+                  "category": "Message",
+                  "type": "Send Message",
+                  "channelname": "<#${dbsVars.CommandChannel.id}>",
+                  "messagetext": "Done!",
+                  "savetovariable": "",
+                  "savetovariabletype": "temp"
+                }
+              ],
+              "varname": "${tempVars.thename}",
+              "savevartype": "temp"
+            }
+          ],
+          "falseActions": [
+            {
+              "name": "sorry",
+              "category": "Message",
+              "type": "Send Message",
+              "channelname": "${dbsVars.CommandAuthor.id}<@${dbsVars.CommandAuthor.id}>",
+              "messagetext": "Sorry, But you don't have permission to create a subdit.",
+              "savetovariable": "",
+              "savetovariabletype": "temp"
+            }
+          ],
+          "user": "${dbsVars.CommandAuthor.id}",
+          "permissions": [
+            "ADMINISTRATOR",
+            "MANAGE_CHANNELS"
+          ]
+        }
+      ]
+    }
+  ]
+}
