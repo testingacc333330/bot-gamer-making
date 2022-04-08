@@ -1,0 +1,403 @@
+{
+  "nodes": [
+    {
+      "type": "command",
+      "name": "createsubdit",
+      "guid": "d378e892-faaf-4208-a591-42081060c1d3",
+      "outputs": [
+        {
+          "label": "responses",
+          "connections": [
+            "578eaaeb-abc7-4379-b001-e7139b1e5270"
+          ]
+        }
+      ],
+      "x": 184,
+      "y": 295
+    },
+    {
+      "type": "response",
+      "name": "coming",
+      "guid": "b6913151-8df3-45f9-860e-e8d35b3ddecc",
+      "reactionFields": [],
+      "embedfields": [],
+      "outputs": [
+        {
+          "label": "next response",
+          "connections": [
+            "6266b08f-db70-4741-81ff-3b473b1b426b"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "label": "trigger",
+          "id": "578eaaeb-abc7-4379-b001-e7139b1e5270"
+        }
+      ],
+      "x": 672,
+      "y": 127,
+      "rtype": "Message",
+      "rsubtype": "Send Message",
+      "formdata": [
+        "${dbsVars.CommandChannel.id}",
+        "Coming right up.",
+        "",
+        "temp"
+      ],
+      "formnames": [
+        "channelName",
+        "messageText",
+        "saveToVariable",
+        "saveToVariableType"
+      ]
+    },
+    {
+      "type": "response",
+      "name": "check",
+      "guid": "578eaaeb-abc7-4379-b001-e7139b1e5270",
+      "reactionFields": [],
+      "embedfields": [],
+      "outputs": [
+        {
+          "label": "has perms",
+          "connections": [
+            "b6913151-8df3-45f9-860e-e8d35b3ddecc"
+          ]
+        },
+        {
+          "label": "doesn't have perms",
+          "connections": [
+            "2f986fe8-33f2-46fb-92f3-ba9df9acfe4e"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "label": "trigger",
+          "id": "d378e892-faaf-4208-a591-42081060c1d3"
+        }
+      ],
+      "x": 445,
+      "y": 237,
+      "rtype": "User Action",
+      "rsubtype": "Check User Permissions",
+      "formdata": [
+        "${dbsVars.CommandAuthor.id}",
+        [
+          "ADMINISTRATOR",
+          "MANAGE_CHANNELS"
+        ]
+      ],
+      "formnames": [
+        "user",
+        "permissions"
+      ]
+    },
+    {
+      "type": "response",
+      "name": "sorry",
+      "guid": "2f986fe8-33f2-46fb-92f3-ba9df9acfe4e",
+      "reactionFields": [],
+      "embedfields": [],
+      "outputs": [
+        {
+          "label": "next response",
+          "connections": []
+        }
+      ],
+      "inputs": [
+        {
+          "label": "trigger",
+          "id": "578eaaeb-abc7-4379-b001-e7139b1e5270"
+        }
+      ],
+      "x": 673,
+      "y": 368,
+      "rtype": "Message",
+      "rsubtype": "Send Message",
+      "formdata": [
+        "${dbsVars.CommandAuthor.id}<@${dbsVars.CommandAuthor.id}>",
+        "Sorry, But you don't have permission to create a subdit.",
+        "",
+        "temp"
+      ],
+      "formnames": [
+        "channelName",
+        "messageText",
+        "saveToVariable",
+        "saveToVariableType"
+      ]
+    },
+    {
+      "type": "response",
+      "name": "newsubdit",
+      "guid": "17f52715-3b7f-4838-b70d-b145f03d8525",
+      "reactionFields": [],
+      "embedfields": [],
+      "saveToVariable": "newsubdit",
+      "saveToVariableType": "temp",
+      "outputs": [
+        {
+          "label": "next response",
+          "connections": [
+            "2376ab58-a17c-43c9-90a6-465f7186e38a"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "label": "trigger",
+          "id": "0641fa20-4623-4a88-9457-2bc1ce176c4c"
+        }
+      ],
+      "x": 1295,
+      "y": 184,
+      "rtype": "Channel Action",
+      "rsubtype": "Create Channel",
+      "formdata": [
+        "/sd/${tempVars.thename}",
+        "",
+        "",
+        "Text",
+        "newsubdit",
+        "temp"
+      ],
+      "formnames": [
+        "channelname",
+        "chancategory",
+        "reason",
+        "channeltype",
+        "saveToVariable",
+        "saveToVariableType"
+      ]
+    },
+    {
+      "type": "response",
+      "name": "var",
+      "guid": "6266b08f-db70-4741-81ff-3b473b1b426b",
+      "reactionFields": [],
+      "embedfields": [],
+      "saveToVariable": "thename",
+      "saveToVariableType": "temp",
+      "outputs": [
+        {
+          "label": "next response",
+          "connections": [
+            "0641fa20-4623-4a88-9457-2bc1ce176c4c"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "label": "trigger",
+          "id": "b6913151-8df3-45f9-860e-e8d35b3ddecc"
+        }
+      ],
+      "x": 903,
+      "y": 151,
+      "rtype": "Variable",
+      "rsubtype": "Store Value in Variable",
+      "formdata": [
+        "thename",
+        "Text",
+        "temp",
+        "1"
+      ],
+      "formnames": [
+        "varname",
+        "vartype",
+        "saveVarType",
+        "param"
+      ]
+    },
+    {
+      "type": "response",
+      "name": "addrole",
+      "guid": "a41d7958-815a-4294-8888-847c91706d00",
+      "reactionFields": [],
+      "embedfields": [],
+      "saveToVariable": "therolenew",
+      "saveToVariableType": "temp",
+      "outputs": [
+        {
+          "label": "next response",
+          "connections": []
+        }
+      ],
+      "inputs": [
+        {
+          "label": "trigger",
+          "id": "0641fa20-4623-4a88-9457-2bc1ce176c4c"
+        }
+      ],
+      "x": 1097,
+      "y": 87,
+      "rtype": "Server Action",
+      "rsubtype": "Add Role to Server",
+      "formdata": [
+        "${tempVars.thename}",
+        "7230FF",
+        "",
+        "false",
+        "false",
+        "therolenew",
+        "temp"
+      ],
+      "formnames": [
+        "rolename",
+        "color",
+        "position",
+        "hoist",
+        "mentionable",
+        "saveToVariable",
+        "saveToVariableType"
+      ]
+    },
+    {
+      "type": "response",
+      "name": "addroletouser",
+      "guid": "2376ab58-a17c-43c9-90a6-465f7186e38a",
+      "reactionFields": [],
+      "embedfields": [],
+      "outputs": [
+        {
+          "label": "next response",
+          "connections": [
+            "c4177b16-0f97-43bf-b55f-f6f2cc6b6318"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "label": "trigger",
+          "id": "17f52715-3b7f-4838-b70d-b145f03d8525"
+        }
+      ],
+      "x": 1589,
+      "y": 210,
+      "rtype": "User Action",
+      "rsubtype": "Add Role to User",
+      "formdata": [
+        "<@${dbsVars.CommandAuthor.id}>",
+        "${tempVars.therolenew}"
+      ],
+      "formnames": [
+        "user",
+        "roleName"
+      ]
+    },
+    {
+      "type": "response",
+      "name": "finish",
+      "guid": "c4177b16-0f97-43bf-b55f-f6f2cc6b6318",
+      "reactionFields": [],
+      "embedfields": [],
+      "outputs": [
+        {
+          "label": "next response",
+          "connections": []
+        }
+      ],
+      "inputs": [
+        {
+          "label": "trigger",
+          "id": "2376ab58-a17c-43c9-90a6-465f7186e38a"
+        }
+      ],
+      "x": 1918,
+      "y": 108,
+      "rtype": "Message",
+      "rsubtype": "Send Message",
+      "formdata": [
+        "<#${dbsVars.CommandChannel.id}>",
+        "Done!",
+        "",
+        "temp"
+      ],
+      "formnames": [
+        "channelName",
+        "messageText",
+        "saveToVariable",
+        "saveToVariableType"
+      ]
+    },
+    {
+      "type": "response",
+      "name": "checkif",
+      "guid": "0641fa20-4623-4a88-9457-2bc1ce176c4c",
+      "reactionFields": [],
+      "embedfields": [],
+      "saveToVariable": "",
+      "saveToVariableType": "temp",
+      "outputs": [
+        {
+          "label": "true",
+          "connections": [
+            "a3b5c2b2-1dd1-465d-a0dc-98791a4a6696"
+          ]
+        },
+        {
+          "label": "false",
+          "connections": [
+            "17f52715-3b7f-4838-b70d-b145f03d8525",
+            "a41d7958-815a-4294-8888-847c91706d00"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "label": "trigger",
+          "id": "6266b08f-db70-4741-81ff-3b473b1b426b"
+        }
+      ],
+      "x": 1115,
+      "y": 249,
+      "rtype": "Variable",
+      "rsubtype": "Check if Variable Exists",
+      "formdata": [
+        "${tempVars.thename}",
+        "temp"
+      ],
+      "formnames": [
+        "varname",
+        "saveVarType"
+      ]
+    },
+    {
+      "type": "response",
+      "name": "bruh",
+      "guid": "a3b5c2b2-1dd1-465d-a0dc-98791a4a6696",
+      "reactionFields": [],
+      "embedfields": [],
+      "outputs": [
+        {
+          "label": "next response",
+          "connections": []
+        }
+      ],
+      "inputs": [
+        {
+          "label": "trigger",
+          "id": "0641fa20-4623-4a88-9457-2bc1ce176c4c"
+        }
+      ],
+      "x": 1369,
+      "y": 377,
+      "rtype": "Message",
+      "rsubtype": "Send Message",
+      "formdata": [
+        "${tempVars.thename}<#${dbsVars.CommandChannel.id}>",
+        "This subdit's name already exists! It's not your fault.",
+        "",
+        "temp"
+      ],
+      "formnames": [
+        "channelName",
+        "messageText",
+        "saveToVariable",
+        "saveToVariableType"
+      ]
+    }
+  ]
+}
